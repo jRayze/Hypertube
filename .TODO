@@ -1,0 +1,71 @@
+INTERFACE :
+
+-Les utilisateurs doivent pouvoir s'inscrire avec les informations suivantes :
+    * Adresse mail
+    * Nom d'utilisateur
+    * Prénom
+    * Nom
+    * Mot de passe (protégé)
+
+- L'utilisateur doit pouvoir se connecter avec Omniauth. Utiliser 2 stratégies d'implémentations.
+
+- L'utilisateur doit pouvoir se connecter avec son Nom d'utilisateur et son mot de passe. Il doit pouvoir recevoir un email pour réinitialiser son mot de passe.
+
+- L'utilisateur doit pouvoir se déconnecter sur n'importe quel page en 1 clique.
+
+- L'utilisateur doit pouvoir choisir une langue préfére, par défaut se sera l'anglais.
+
+- L'utilisateur doit pouvoir 
+    * modifier son adresse email, la photo de profile et ses informations.
+    * consulter le profil des autres utilisateur, voir ses informations et sa photo de profile
+        - l'adresse mail doit rester privée.
+
+LIBRAIRIE : 
+        ***La librairie ne dois etre accessible qu'aux utilisateur connectés***
+    - Mettre en place une zone de recherche
+    - Afficher des miniatures de films
+
+RECHERCHE : 
+    - La recherche doit intéroger un dse sites externe de torrent et retourner l'ensemble des résultats sous forme de miniatures
+        * Limiter la recherche aux vidéos uniquements.
+
+MINIATURES :
+    - Si la recherche aboutis, les résultats doivents etre vue sous forme de miniatures triés par noms.
+    - Si la recherche n'aboutis pas , il faut afficher les films les plus populaires du site de torrent triés par les critères de notre choix (télécharement, nom de la personne qui met en ligne le torrent, )
+    - En plus du nom de la vidéo, la miniatures doit etre composé, si disponible, de l'année de production, sa note IMDb ainsi qu'une image de couverture.
+    - Differencier les vidéos vue de celles non vue (de la facon dont on le souhaite)
+    - La liste doit etre automatiquement paginée (le numéro de page) a la fin de chaques pages. 
+        * La page suivante doit être chargé de manière asynchrone.
+    - La page doit etre triable et filtrable en fonction de criteres comme le nom, le genre, la note IMDb, les différences de date de production etc
+
+PARTIE VIDEO : 
+        ***accessible uniquement au utilisateur connectés.***
+    - Cette partie va présenter le détail de la vidéo, c'est a dire, afficher le lecteur de vidéo de facon qu'on ai :
+        * son status / disponible ou non
+        * le résumé 
+        * le casting (au minimum le producteur, directeur, le casting principal cad les acteur principaux)
+        * l'année de production
+        * la durée du film
+        * la note IMDb
+        * ???
+        * tout ce que vous pensez pertinent
+        * laisser l'utilisateur mettre un commentaire et voir les précedents
+        * pour lancer la vidéo :
+            - si la vidéo n'est pas téléchargée :
+                * lancer le télécharement du torrent associé sur le serveur et stremer le flux vidéo depuis celui ci des qu'il sera téléchargé pour assurer une lecture fluide le la vidéo les traitement se font en arriere plan
+        * lorsuqe la vidéo est dl, elle doit etre sauvegardé sur le serveur, on autra pas besoi nde le retelecharger plus tard. Si le film n'est pas regardé dans le mois le film sera supprimé.
+        * si les soutitres englais sont disponible, ils devront etre dl et utilisé dans notre lecteur video. Si la langue de la vidéo n'est pas disponible dans la langue de l'user, il faut dl tout les soustitres et proposer al 'user un choix sur ceux ci.
+        * si la vidéo ne poeux pas etre lue de facon naturel, il doit etre transformé dans un format acceptable. le mkv est le minimum.
+
+API
+    Avec le développement d'une API RESTful avec OAuth2 on peut utiliser les informations basic pour tout le projet.
+
+        * Les user identifiés pourront voir tout les profils et mettre le leur a jour.
+        * N'importe quel user peut voir la page principale du site c'est a dire les meilleures vidoés (uniquement les infos basiques).
+        * Un GET sur un film doit retourner toute les informations importantes rassemblées au paravant.
+        * Les utilisateur autentifiés peuvent voir les commentaires dans /comments/ :id et movie/ :id/-comments
+            -Ils peuvent mettre un commentaire 'using a proper payload' (aka ses informations de l'api).
+        * Tout les autres API appelés doivet etre utilisables. Retourner le bon code HTTP.
+
+
+    
