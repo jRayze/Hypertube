@@ -55,7 +55,7 @@ PARTIE VIDEO :
                 * lancer le télécharement du torrent associé sur le serveur et stremer le flux vidéo depuis celui ci des qu'il sera téléchargé pour assurer une lecture fluide le la vidéo les traitement se font en arriere plan
         * lorsuqe la vidéo est dl, elle doit etre sauvegardé sur le serveur, on autra pas besoi nde le retelecharger plus tard. Si le film n'est pas regardé dans le mois le film sera supprimé.
         * si les soutitres englais sont disponible, ils devront etre dl et utilisé dans notre lecteur video. Si la langue de la vidéo n'est pas disponible dans la langue de l'user, il faut dl tout les soustitres et proposer al 'user un choix sur ceux ci.
-        * si la vidéo ne poeux pas etre lue de facon naturel, il doit etre transformé dans un format acceptable. le mkv est le minimum.
+        * si la vidéo ne peux pas etre lue de facon naturel, il doit etre transformé dans un format acceptable. le mkv est le minimum.
 
 API
     Avec le développement d'une API RESTful avec OAuth2 on peut utiliser les informations basic pour tout le projet.
