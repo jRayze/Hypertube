@@ -1,0 +1,65 @@
+.media-poster {}
+
+.container {
+  margin: auto;
+  padding: 10px;
+}
+
+.left {
+  float: left;
+}
+
+img {
+  width: 100px;
+  border-radius: 5%;
+  margin-right: 10px;
+}
+
+.media-metadata {
+  font-style: italic;
+}
+
+.load-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.episode-number {
+  background-color: rgba(33, 33, 33, 0.5);
+  width: 30px;
+  margin-left: -12px;
+  border-right: 1px solid #444444;
+}
+
+.episode-title {
+  margin-left: 10px;
+}
+
+.episode-details {
+  margin-left: 10px;
+}
+
+.seen-icon {
+  margin: 4px;
+  opacity: 0.7;
+}
+
+.close-button {
+  float: right;
+  top: -15px;
+  right: -21px;
+  display: flex;
+}
+
+.close-icon {
+  transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
+.media-details {
+  width: 100%;
+}

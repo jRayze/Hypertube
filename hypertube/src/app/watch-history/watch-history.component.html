@@ -1,0 +1,33 @@
+<mat-card style="background-color: #131212;">
+  <div class="custom-title">
+    {{languageService.getTranslation('History')}}
+  </div>
+  <hr style="width:80%">
+  <div style="overflow-y:auto; height: 275px;">
+    <div class="centered">
+      <mat-spinner *ngIf="loadHistory"></mat-spinner>
+    </div>
+    <mat-grid-list *ngIf="!loadHistory" cols="2" rowHeight="1:1">
+      <mat-grid-tile *ngFor="let h of history"
+        style="background-image: url({{h.Data.images.fanart}}); background-size: cover; background-position: center; cursor: pointer; vertical-align: middle;"
+        (click)="historyItemClicked(h)">
+        <div *ngIf="!h.Details.season_number">
+          <h3 style="color: white; text-shadow: 1px 1px 5px black; text-align:center; margin: 0px; word-wrap: break-word;">
+            {{h.Data.title}}
+          </h3>
+        </div>
+        <div *ngIf="h.Details.season_number">
+          <h4 style="color: white; text-shadow: 1px 1px 5px black; text-align:center; margin: 0px; word-wrap: break-word;">
+            {{h.Data.title}}
+          </h4>
+          <h4 style="color: white; text-shadow: 1px 1px 5px black; text-align:center; margin: 0px; word-wrap: break-word;">
+            {{languageService.getTranslation("Season")}} {{h.Details.season_number}}
+          </h4>
+          <h4 style="color: white; text-shadow: 1px 1px 5px black; text-align:center; margin: 0px; word-wrap: break-word;">
+            {{languageService.getTranslation("Episode")}} {{h.Details.episode_number}}
+          </h4>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</mat-card>

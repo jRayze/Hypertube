@@ -1,0 +1,28 @@
+<div class="container description" >
+  <img src="{{media.images.fanart}}" style=" position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0.2;">
+  <div class="media-poster left">
+    <img style="width: 100px; border-radius: 5%; margin-right: 10px;" src="{{media.images.banner}}">
+  </div>
+  <div class="media-details">
+    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+      <mat-icon class="close-icon" color="warn">close</mat-icon>
+    </button>
+    <h1 class="media-title">{{media.title}}</h1>
+    <div class="media-infos-min">
+      <div style="font-weight: 600;">{{media.year}}  •  {{media.runtime}} min  •  {{mediaGenres}}</div>
+    </div>
+    <p>{{media.synopsis}}</p>
+  </div>
+</div>
+<div class="container peerDetails" >
+  <section class="episode-details" style="width: 100%; margin:auto">
+    <mat-card class="custom-mat-card" style="height: auto;">
+      <app-resolution-picker [media]="media" [mediaCategory]="mediaCategory">
+        
+      </app-resolution-picker>
+    </mat-card>
+  </section>
+</div>
+<app-comment-list [imdb_id]="media.imdb_id">
+    
+</app-comment-list>

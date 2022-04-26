@@ -1,0 +1,16 @@
+<div class="center">
+    <div>
+        <h1>{{languageService.getTranslation('Username')}}</h1>
+    </div>
+</div>
+<div class="example-container center">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{languageService.getTranslation('Username')}}</mat-label>
+      <input [attr.disabled]="busy ? '' : null" matInput placeholder="Username" (input)="usernameInputChanged()" [(ngModel)]="usernameInput">
+      <mat-hint class="username-error" *ngIf="usernameError">{{usernameError}}</mat-hint>
+    </mat-form-field>
+    
+  </div>
+<div class="center">
+  <button [disabled]="busy || usernameError.length > 0" (click)="checkUsername()" mat-flat-button color="primary">{{languageService.getTranslation('Confirm')}}</button>
+</div>

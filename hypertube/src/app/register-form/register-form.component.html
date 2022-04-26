@@ -1,0 +1,116 @@
+<div (click)="setShowMail()" class="custom-oauth-button" style="height: 32px;">
+  <div class="custom-oauth-icon">
+    <img src="/assets/mail.svg" style="width: 60%; display: flex; margin: auto; color: red">
+  </div>
+  <div class="custom-oauth-text">
+    Sign in with Mail
+  </div>
+</div>
+<mat-card *ngIf="showMail" class="custom-mat-card" style="background-color: #1d1818;">
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab label="Sign In">
+      <div class="example-container">
+        <mat-card class="custom-mat-card">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="emailLogin" [(ngModel)]="loginEmailInput"
+              required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'" required>
+            <mat-hint class="hint-error" *ngIf="loginError.length > 0">{{loginError}}</mat-hint>
+            <mat-hint class="hint-success" *ngIf="loginSuccess">You are logged in!</mat-hint>
+            <mat-hint class="hint-success" *ngIf="accountCreated">Account created!</mat-hint>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button [disabled]="loginLoading" (click)="login()" mat-stroked-button
+            style="background-color: #673ab7;">Login</button>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Register">
+      <div class="example-container">
+        <mat-card class="custom-mat-card">
+          <mat-form-field appearance="legacy">
+            <mat-label>First name</mat-label>
+            <input matInput (input)="firstNameInputChanged()" type="text" [(ngModel)]="firstName" required>
+            <mat-hint class="hint-error" *ngIf="firstNameError.length > 0">{{firstNameError}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="legacy">
+            <mat-label>Last name</mat-label>
+            <input matInput (input)="lastNameInputChanged()" type="text" [(ngModel)]="lastName" required>
+            <mat-hint class="hint-error" *ngIf="lastNameError.length > 0">{{lastNameError}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="legacy">
+            <mat-label>Nickname</mat-label>
+            <input matInput (input)="usernameInputChanged()" type="text" [(ngModel)]="username" required>
+            <mat-hint class="hint-error" *ngIf="usernameError.length > 0">{{usernameError}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="emailRegister" [(ngModel)]="emailInput"
+              required>
+            <mat-error *ngIf="emailRegister.invalid">{{getErrorMessageRegister()}}</mat-error>
+            <mat-hint class="hint-error" *ngIf="emailInputError.length > 0">{{emailInputError}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput (input)="password1InputChanged()" [(ngModel)]="password1"
+              [type]="hide ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint class="hint-error" *ngIf="password1Error.length > 0">{{password1Error}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirm your password</mat-label>
+            <input matInput (input)="password2InputChanged()" [(ngModel)]="password2"
+              [type]="hide2 ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide2">
+              <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint class="hint-error" *ngIf="password2Error.length > 0">{{password2Error}}</mat-hint>
+          </mat-form-field>
+          <button [disabled]="!validForm" (click)="register()" mat-stroked-button
+            style="background-color: #673ab7;">Confirm</button>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Trouble Logging In ?">
+      <mat-card class="custom-mat-card">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input [attr.disabled]="(emailRecoverySuccess ? 'true' : 'false')" matInput placeholder="pat@example.com"
+            [formControl]="emailTrouble" [(ngModel)]="emailRecovery" required>
+          <mat-hint class="hint-error" *ngIf="emailRecoveryError != null">{{emailRecoveryError}}</mat-hint>
+          <mat-hint class="hint-success" *ngIf="emailRecoverySuccess">Success, check your emails</mat-hint>
+        </mat-form-field>
+        <button [disabled]="(emailRecoverySuccess ? 'true' : 'false')" mat-stroked-button (click)="recoverEmail()"
+          style="background-color: #673ab7; display: block;">Confirm</button>
+        <mat-form-field appearance="fill" *ngIf="emailRecoverySuccess">
+          <mat-label>Enter the code</mat-label>
+          <input [attr.disabled]="(recoveryCodeSuccess ? 'true' : 'false')"  [type]="hide ? 'password' : 'text'" matInput placeholder="Recovery code" [(ngModel)]="recoveryCode" required>
+          <mat-hint class="hint-error" *ngIf="recoveryCodeError != null">{{recoveryCodeError}}</mat-hint>
+          <mat-hint class="hint-success" *ngIf="recoveryCodeSuccess">Code is valid!</mat-hint>
+        </mat-form-field>
+        <button [disabled]="(recoveryCodeSuccess ? 'true' : 'false')" *ngIf="emailRecoverySuccess" mat-stroked-button
+          (click)="checkRecoveryCode()" style="background-color: #673ab7; display: block;">Check code</button>
+        <mat-form-field appearance="fill" *ngIf="recoveryCodeSuccess">
+          <mat-label>Enter your new password</mat-label>
+          <input [attr.disabled]="(changePasswordSuccess ? 'true' : 'false')" [type]="hide ? 'password' : 'text'" (input)="newPasswordInputChanged()"  matInput placeholder="New password" [(ngModel)]="newPassword" required>
+          <mat-hint class="hint-error" *ngIf="newPasswordError.length > 0">{{newPasswordError}}</mat-hint>
+          <mat-hint class="hint-error" *ngIf="changePasswordError.length > 0">{{changePasswordError}}</mat-hint>
+          <mat-hint class="hint-success" *ngIf="changePasswordSuccess">Password updated, you can log in</mat-hint>
+        </mat-form-field>
+        <button [disabled]="!validNewPassword ? 'true' : 'false'" *ngIf="recoveryCodeSuccess && !changePasswordSuccess" mat-stroked-button
+          (click)="changePassword()" style="background-color: #673ab7; display: block;">Change password</button>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
